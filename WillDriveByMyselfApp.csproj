@@ -55,7 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ServiceViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\ServiceView.xaml.cs">
+      <DependentUpon>ServiceView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +70,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,6 +104,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Услуги автосервиса\diz.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\rulevoe-upravlenie-avtomobilya.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\transmission.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\АКПП.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\Вариатор.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\Выхлопная система.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\ГУР.png" />
+    <Resource Include="Resources\Услуги автосервиса\Двигатель.png" />
+    <Resource Include="Resources\Услуги автосервиса\Дополнительные услуги.png" />
+    <Resource Include="Resources\Услуги автосервиса\Кондиционер.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\КПП.png" />
+    <Resource Include="Resources\Услуги автосервиса\Подвеска.png" />
+    <Resource Include="Resources\Услуги автосервиса\Сцепление.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\Техническое обслуживание.png" />
+    <Resource Include="Resources\Услуги автосервиса\Топливная система.png" />
+    <Resource Include="Resources\Услуги автосервиса\Шиномонтаж.jpg" />
+    <Resource Include="Resources\Услуги автосервиса\Электрика.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
