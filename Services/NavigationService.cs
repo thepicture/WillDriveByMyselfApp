@@ -12,7 +12,6 @@ namespace WillDriveByMyselfApp.Services
     {
         public static ViewModelBase SelectedViewModel;
         public static event Action Navigated;
-        public static object ReturnValue;
 
         public static Stack<ViewModelBase> History = new Stack<ViewModelBase>();
         public static bool CanGoBack;
@@ -20,7 +19,7 @@ namespace WillDriveByMyselfApp.Services
         /// <summary>
         /// Navigates to the given view model type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The type to navigate to.</typeparam>
         public static void Navigate<T>()
         {
             ViewModelBase viewModelToNavigate =
@@ -34,7 +33,6 @@ namespace WillDriveByMyselfApp.Services
         /// <summary>
         /// Pops the last view model from the history and sets 
         /// the current view model to a new peek.
-        /// <param name="returnValue">Identifies a value to return when goes back.</param>
         /// <exception cref="System.IndexOutOfRangeException">
         /// Throws 
         /// <see cref="IndexOutOfRangeException">
@@ -42,15 +40,14 @@ namespace WillDriveByMyselfApp.Services
         /// </see> when trying to go back with one element in the history.
         /// </exception>
         /// </summary>
-        public static void GoBack(object returnValue = null)
+        public static void GoBack()
         {
             if (History.Count == 1)
             {
                 throw new IndexOutOfRangeException("NavigationService's history is empty");
             }
-            History.Pop();
+            _ = History.Pop();
             SelectedViewModel = History.Peek();
-            ReturnValue = returnValue;
             CanGoBack = History.Count > 1;
             Navigated?.Invoke();
         }

@@ -2,7 +2,7 @@
 
 namespace WillDriveByMyselfApp.Services
 {
-    public class MessageBoxService : IMessageService
+    public class MessageBoxPopupService : IPopupService
     {
         public void ShowError(string message)
         {

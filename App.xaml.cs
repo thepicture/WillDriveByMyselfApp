@@ -13,7 +13,7 @@ namespace WillDriveByMyselfApp
         {
             base.OnStartup(e);
 
-            DependencyService.Register<MessageBoxService>();
+            DependencyService.Register<MessageBoxPopupService>();
 
             new MainView().Show();
             NavigationService.Navigate<ServiceViewModel>();

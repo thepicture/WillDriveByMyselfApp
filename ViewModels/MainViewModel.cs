@@ -11,14 +11,17 @@ namespace WillDriveByMyselfApp.ViewModels
         public MainViewModel()
         {
             NavigationService.Navigated += OnNavigated;
+            MessageService.NewMessage += OnNewMessage;
         }
 
         private void OnNavigated()
         {
             OnPropertyChanged(nameof(SelectedViewModel));
             OnPropertyChanged(nameof(CanGoBack));
-            if (NavigationService.ReturnValue is string
-                && (NavigationService.ReturnValue as string) == "AdminModeEnable")
+        }
+        private void OnNewMessage(object message)
+        {
+            if (message is string && (message as string) == "AdminModeEnable")
             {
                 IsInAdminMode = true;
             }

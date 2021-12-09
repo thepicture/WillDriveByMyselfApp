@@ -1,6 +1,6 @@
 ﻿namespace WillDriveByMyselfApp.Services
 {
-    public interface IMessageService
+    public interface IPopupService
     {
         void ShowInfo(string message);
         void ShowWarning(string message);
