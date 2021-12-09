@@ -6,6 +6,8 @@ namespace WillDriveByMyselfApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        private bool _isInAdminMode = false;
+
         public MainViewModel()
         {
             NavigationService.Navigated += OnNavigated;
@@ -15,23 +17,28 @@ namespace WillDriveByMyselfApp.ViewModels
         {
             OnPropertyChanged(nameof(SelectedViewModel));
             OnPropertyChanged(nameof(CanGoBack));
+            if (NavigationService.ReturnValue is string
+                && (NavigationService.ReturnValue as string) == "AdminModeEnable")
+            {
+                IsInAdminMode = true;
+            }
         }
 
         public ViewModelBase SelectedViewModel => NavigationService.SelectedViewModel;
         public bool CanGoBack => NavigationService.CanGoBack;
 
-        private RelayCommand goToAdminModeCheckingCommand;
+        private RelayCommand _goToAdminModeCheckingCommand;
 
         public ICommand GoToAdminModeCheckingCommand
         {
             get
             {
-                if (goToAdminModeCheckingCommand == null)
+                if (_goToAdminModeCheckingCommand == null)
                 {
-                    goToAdminModeCheckingCommand = new RelayCommand(GoToAdminModeChecking);
+                    _goToAdminModeCheckingCommand = new RelayCommand(GoToAdminModeChecking);
                 }
 
-                return goToAdminModeCheckingCommand;
+                return _goToAdminModeCheckingCommand;
             }
         }
 
@@ -40,18 +47,27 @@ namespace WillDriveByMyselfApp.ViewModels
             NavigationService.Navigate<AdminModeCheckingViewModel>();
         }
 
-        private RelayCommand goBackCommand;
+        private RelayCommand _goBackCommand;
 
         public ICommand GoBackCommand
         {
             get
             {
-                if (goBackCommand == null)
+                if (_goBackCommand == null)
                 {
-                    goBackCommand = new RelayCommand(GoBack);
+                    _goBackCommand = new RelayCommand(GoBack);
                 }
 
-                return goBackCommand;
+                return _goBackCommand;
+            }
+        }
+
+        public bool IsInAdminMode
+        {
+            get => _isInAdminMode; set
+            {
+                _isInAdminMode = value;
+                OnPropertyChanged();
             }
         }
 

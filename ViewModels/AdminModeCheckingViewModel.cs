@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using WillDriveByMyselfApp.Commands;
+using WillDriveByMyselfApp.Services;
 
 namespace WillDriveByMyselfApp.ViewModels
 {
@@ -17,23 +18,34 @@ namespace WillDriveByMyselfApp.ViewModels
             }
         }
 
-        private RelayCommand activateAdminModeCommand;
+        private RelayCommand _activateAdminModeCommand;
 
         public ICommand ActivateAdminModeCommand
         {
             get
             {
-                if (activateAdminModeCommand == null)
+                if (_activateAdminModeCommand == null)
                 {
-                    activateAdminModeCommand = new RelayCommand(ActivateAdminMode);
+                    _activateAdminModeCommand = new RelayCommand(ActivateAdminMode);
                 }
 
-                return activateAdminModeCommand;
+                return _activateAdminModeCommand;
             }
         }
 
         private void ActivateAdminMode(object commandParameter)
         {
+            if (Code == "0000")
+            {
+                DependencyService.Get<MessageBoxService>().ShowInfo("Режим " +
+                    "администратора активирован");
+                NavigationService.GoBack("AdminModeEnable");
+            }
+            else
+            {
+                DependencyService.Get<MessageBoxService>().ShowWarning("Неверный код. " +
+                   "Введите корректный код для активации режима администратора");
+            }
         }
     }
 }

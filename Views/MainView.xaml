@@ -40,8 +40,19 @@
                         VerticalAlignment="Center"
                         Orientation="Horizontal">
                 <Button Content="Войти в режим администратора"
-                    Style="{StaticResource CommonButton}"
-                    Command="{Binding GoToAdminModeCheckingCommand}"></Button>
+                    Command="{Binding GoToAdminModeCheckingCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                               BasedOn="{StaticResource CommonButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsInAdminMode}"
+                                             Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
                 <Button Content="Назад"
                         IsEnabled="{Binding CanGoBack}"
                         Style="{StaticResource CommonButton}"

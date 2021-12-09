@@ -12,6 +12,9 @@ namespace WillDriveByMyselfApp
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+
+            DependencyService.Register<MessageBoxService>();
+
             new MainView().Show();
             NavigationService.Navigate<ServiceViewModel>();
         }
