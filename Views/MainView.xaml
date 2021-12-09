@@ -54,6 +54,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:ServiceViewModel}">
                     <views:ServiceView></views:ServiceView>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:AdminModeCheckingViewModel}">
+                    <views:AdminModeCheckingView></views:AdminModeCheckingView>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <Grid Background="#FF9C1A"

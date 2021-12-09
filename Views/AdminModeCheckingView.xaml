@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="WillDriveByMyselfApp.Views.AdminModeCheckingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WillDriveByMyselfApp.Views"
+      xmlns:viewmodels="clr-namespace:WillDriveByMyselfApp.ViewModels"
+      d:DataContext="{d:DesignInstance Type=viewmodels:AdminModeCheckingViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      d:DesignWidth="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Введите код для входа в режим администратора"></TextBlock>
+            <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource CommonTextBox}"
+                     MaxLength="4"></TextBox>
+            <Button Content="Активировать код"
+                    Command="{Binding ActivateAdminModeCommand}">
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource CommonButton}">
+                        <Setter Property="IsEnabled" Value="False" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Code.Length}"
+                                         Value="4">
+                                <Setter Property="IsEnabled" Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

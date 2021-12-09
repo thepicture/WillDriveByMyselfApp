@@ -41,5 +41,18 @@
                 </Style>
             </Style.Resources>
         </Style>
+        <Style TargetType="TextBox"
+               x:Key="CommonTextBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}" />
+            <Style.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+        </Style>
     </Application.Resources>
 </Application>
