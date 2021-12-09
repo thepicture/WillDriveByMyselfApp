@@ -5,13 +5,13 @@ namespace WillDriveByMyselfApp.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        private string title;
+        private string _title;
 
         public string Title
         {
-            get => title; set
+            get => _title; set
             {
-                title = value;
+                _title = value;
                 OnPropertyChanged();
             }
         }

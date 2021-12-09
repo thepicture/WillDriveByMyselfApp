@@ -13,7 +13,8 @@
         Width="1200"
         WindowStartupLocation="CenterScreen"
         MinHeight="850"
-        MinWidth="1200">
+        MinWidth="1200"
+        Style="{StaticResource MainViewStyle}">
     <Window.DataContext>
         <viewmodels:MainViewModel></viewmodels:MainViewModel>
     </Window.DataContext>
@@ -23,7 +24,19 @@
             <RowDefinition Height="6*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Grid Background="#FF9C1A"></Grid>
+        <Grid Background="#FF9C1A" BitmapEffect="{StaticResource ShadowEffect}">
+            <Image Source="../Resources/service_logo.png"
+                   HorizontalAlignment="Left"
+                   Style="{StaticResource CommonImage}"
+                   BitmapEffect="{StaticResource ShadowEffect}">
+            </Image>
+            <Viewbox>
+                <TextBlock Text="{Binding SelectedViewModel.Title}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                           Foreground="White"></TextBlock>
+            </Viewbox>
+        </Grid>
         <ContentControl Content="{Binding SelectedViewModel}"
                Grid.Row="1">
             <ContentControl.Resources>
@@ -33,6 +46,7 @@
             </ContentControl.Resources>
         </ContentControl>
         <Grid Background="#FF9C1A"
-              Grid.Row="2"></Grid>
+              Grid.Row="2"
+              BitmapEffect="{StaticResource ShadowEffect}"></Grid>
     </Grid>
 </Window>
