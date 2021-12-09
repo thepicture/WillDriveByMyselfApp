@@ -5,7 +5,7 @@ namespace WillDriveByMyselfApp.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        private string _title;
+        private string _title = string.Empty;
 
         public string Title
         {

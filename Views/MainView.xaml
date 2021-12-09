@@ -24,7 +24,8 @@
             <RowDefinition Height="6*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <Grid Background="#FF9C1A" BitmapEffect="{StaticResource ShadowEffect}">
+        <Grid Background="{StaticResource AdditionalBackground}" 
+              BitmapEffect="{StaticResource ShadowEffect}">
             <Image Source="../Resources/service_logo.png"
                    HorizontalAlignment="Left"
                    Style="{StaticResource CommonImage}"
@@ -33,9 +34,19 @@
             <Viewbox>
                 <TextBlock Text="{Binding SelectedViewModel.Title}"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                           Foreground="White"></TextBlock>
+                       VerticalAlignment="Center"></TextBlock>
             </Viewbox>
+            <StackPanel HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Content="Войти в режим администратора"
+                    Style="{StaticResource CommonButton}"
+                    Command="{Binding GoToAdminModeCheckingCommand}"></Button>
+                <Button Content="Назад"
+                        IsEnabled="{Binding CanGoBack}"
+                        Style="{StaticResource CommonButton}"
+                        Command="{Binding GoBackCommand}"></Button>
+            </StackPanel>
         </Grid>
         <ContentControl Content="{Binding SelectedViewModel}"
                Grid.Row="1">

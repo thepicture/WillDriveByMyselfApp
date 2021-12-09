@@ -33,6 +33,8 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}" />
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />
