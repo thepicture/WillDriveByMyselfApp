@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="227823c75f7e4a4a8e2966a587e0044e" Name="Diagram1">
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Client" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.ClientService" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.DocumentByService" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Gender" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Manufacturer" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Product" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.ProductPhoto" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.ProductSale" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Service" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.ServicePhoto" Width="1.5" PointX="3" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WillDriveByMyselfBaseModel.Tag" Width="1.5" PointX="3" PointY="16.25" IsExpanded="true" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_Client_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ClientService_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ClientService_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_DocumentByService_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ProductSale_ClientService" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ProductPhoto_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ProductSale_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.FK_ServicePhoto_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.AttachedProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="WillDriveByMyselfBaseModel.TagOfClient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

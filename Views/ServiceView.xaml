@@ -5,18 +5,66 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WillDriveByMyselfApp.Views" 
              xmlns:viewmodels="clr-namespace:WillDriveByMyselfApp.ViewModels" 
+             xmlns:converters="clr-namespace:WillDriveByMyselfApp.Converters"
              d:DataContext="{d:DesignInstance Type=viewmodels:ServiceViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="Services"
-                   Style="{StaticResource CommonBlock}"></TextBlock>
-        <Button Content="Test"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Width="200"
-                Style="{StaticResource CommonButton}">
-        </Button>
+    <Grid Style="{StaticResource CommonGrid}"
+          Background="White"
+          BitmapEffect="{StaticResource ShadowEffect}">
+        <Grid.Resources>
+            <converters:SecondsToMinutesConverter x:Key="SecondsToMinutes"></converters:SecondsToMinutesConverter>
+            <converters:ImagePathConverter x:Key="ImagePathConverter"></converters:ImagePathConverter>
+        </Grid.Resources>
+        <ListBox ItemsSource="{Binding Services}"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="White"
+                          BitmapEffect="{StaticResource ShadowEffect}"
+                          Style="{StaticResource CommonGrid}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Width="200"
+                               Height="200"
+                               HorizontalAlignment="Left"
+                               Stretch="UniformToFill"
+                               Style="{StaticResource CommonImage}"
+                               Source="{Binding MainImagePath, Converter={StaticResource ImagePathConverter}}"></Image>
+                        <Grid Grid.Column="1">
+                            <UniformGrid Rows="4">
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="30"
+                                           FontWeight="Bold"
+                                           Style="{StaticResource CommonBlock}"></TextBlock>
+                                <TextBlock Style="{StaticResource CommonBlock}"
+                                           FontSize="30">
+                                    <TextBlock.Inlines>
+                                        <Run Text="{Binding Cost, StringFormat={}{0:F0} рублей за }"></Run>
+                                        <Run Text="{Binding DurationInSeconds, Converter={StaticResource SecondsToMinutes}, StringFormat={}{0} минут}"></Run>
+                                    </TextBlock.Inlines>
+                                </TextBlock>
+                                <TextBlock></TextBlock>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource CommonButton}"
+                                            Content="Редактировать"></Button>
+                                    <Button Style="{StaticResource CommonButton}"
+                                            Content="Удалить"></Button>
+                                </StackPanel>
+                            </UniformGrid>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using WillDriveByMyselfApp.Services;
+using WillDriveByMyselfApp.Stores;
 using WillDriveByMyselfApp.ViewModels;
 
 namespace WillDriveByMyselfApp
@@ -16,6 +17,7 @@ namespace WillDriveByMyselfApp
             DependencyService.Register<MessageBoxPopupService>();
             DependencyService.Register<NavigationService>();
             DependencyService.Register<MessageService>();
+            DependencyService.Register<ServiceDataStore>();
 
             new MainView().Show();
             DependencyService.Get<NavigationService>().Navigate<ServiceViewModel>();
