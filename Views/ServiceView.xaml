@@ -15,21 +15,25 @@
           BitmapEffect="{StaticResource ShadowEffect}">
         <Grid.Resources>
             <converters:SecondsToMinutesConverter x:Key="SecondsToMinutes"></converters:SecondsToMinutesConverter>
-            <converters:ImagePathConverter x:Key="ImagePathConverter"></converters:ImagePathConverter>
+            <converters:ImagePathConverter x:Key="PathToImage"></converters:ImagePathConverter>
+            <converters:DiscountToPercentConverter x:Key="DiscountToPercent"></converters:DiscountToPercentConverter>
+            <converters:CostToColorConverter x:Key="CostToColor"></converters:CostToColorConverter>
+            <converters:DiscountToStrikeThroughConverter x:Key="DiscountToStrikethrough"></converters:DiscountToStrikeThroughConverter>
+            <converters:CostToDiscountCostConverter x:Key="CostToDiscountCost"></converters:CostToDiscountCostConverter>
         </Grid.Resources>
         <ListBox ItemsSource="{Binding Services}"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" 
+                            Value="Stretch" />
                 </Style>
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid Background="White"
-                          BitmapEffect="{StaticResource ShadowEffect}"
-                          Style="{StaticResource CommonGrid}">
+                    <Grid Background="{Binding Discount, Converter={StaticResource CostToColor}}"
+                          BitmapEffect="{StaticResource ShadowEffect}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
@@ -39,7 +43,7 @@
                                HorizontalAlignment="Left"
                                Stretch="UniformToFill"
                                Style="{StaticResource CommonImage}"
-                               Source="{Binding MainImagePath, Converter={StaticResource ImagePathConverter}}"></Image>
+                               Source="{Binding MainImagePath, Converter={StaticResource PathToImage}}"></Image>
                         <Grid Grid.Column="1">
                             <UniformGrid Rows="4">
                                 <TextBlock Text="{Binding Title}"
@@ -49,11 +53,39 @@
                                 <TextBlock Style="{StaticResource CommonBlock}"
                                            FontSize="30">
                                     <TextBlock.Inlines>
-                                        <Run Text="{Binding Cost, StringFormat={}{0:F0} рублей за }"></Run>
+                                        <Run Text="{Binding Cost, StringFormat={}{0:F0} руб.}"
+                                             TextDecorations="{Binding Discount, Converter={StaticResource DiscountToStrikethrough}}">
+                                        </Run>
+                                        <Run Text="{Binding ., StringFormat={}{0:F0} руб., Converter={StaticResource CostToDiscountCost}}">
+                                            <Run.Style>
+                                                <Style TargetType="Run">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Discount}"
+                                                             Value="0">
+                                                            <Setter Property="Foreground" Value="Transparent" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Run.Style>
+                                        </Run>
+                                        <Run Text=" за "></Run>
                                         <Run Text="{Binding DurationInSeconds, Converter={StaticResource SecondsToMinutes}, StringFormat={}{0} минут}"></Run>
                                     </TextBlock.Inlines>
                                 </TextBlock>
-                                <TextBlock></TextBlock>
+                                <TextBlock Text="{Binding Discount, StringFormat={}Размер скидки: {0}%, Converter={StaticResource DiscountToPercent}}"
+                                           FontSize="20">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock"
+                                               BasedOn="{StaticResource CommonBlock}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Discount}"
+                                                             Value="0">
+                                                    <Setter Property="Visibility" Value="Hidden" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <Button Style="{StaticResource CommonButton}"
                                             Content="Редактировать"></Button>
