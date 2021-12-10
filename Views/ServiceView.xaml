@@ -30,6 +30,12 @@
             <ComboBox Style="{StaticResource CommonComboBox}"
                       ItemsSource="{Binding SortTypes}"
                       SelectedItem="{Binding CurrentSortType}"></ComboBox>
+            <ComboBox Style="{StaticResource CommonComboBox}"
+                      ItemsSource="{Binding FilterTypes}"
+                      SelectedItem="{Binding CurrentFilterType}"></ComboBox>
+            <Button Style="{StaticResource CommonButton}"
+                    Content="Сбросить значения фильтрации"
+                    Command="{Binding ClearCurrentFilterTypeCommand}"></Button>
         </WrapPanel>
         <ListBox ItemsSource="{Binding Services}"
                  Grid.Row="1"

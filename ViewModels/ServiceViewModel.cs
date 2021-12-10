@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using WillDriveByMyselfApp.Commands;
 using WillDriveByMyselfApp.Entities;
 
 namespace WillDriveByMyselfApp.ViewModels
 {
     public class ServiceViewModel : ViewModelBase
     {
-        private ObservableCollection<Service> _services;
+        private const double percentToCoefficientFactor = 0.01;
+        private IEnumerable<Service> _services;
         private IEnumerable<string> _sortTypes;
         private string _currentSortType;
+        private IEnumerable<string> _filterTypes;
+        private string _currentFilterType;
         public ServiceViewModel()
         {
             Title = "Список услуг";
-            Services = new ObservableCollection<Service>(ServiceStore.ReadAll());
+            Services = ServiceStore.ReadAll().ToList();
             SortTypes = new List<string>
             {
                 "Без сортировки",
@@ -22,9 +26,19 @@ namespace WillDriveByMyselfApp.ViewModels
                 "По стоимости по убыванию",
             };
             CurrentSortType = SortTypes.First();
+            FilterTypes = new List<string>
+            {
+                "Все",
+                "от 0 до 5%",
+                "от 5% до 15%",
+                "от 15% до 30%",
+                "от 30% до 70%",
+                "от 70% до 100%"
+            };
+            CurrentFilterType = FilterTypes.First();
         }
 
-        public ObservableCollection<Service> Services
+        public IEnumerable<Service> Services
         {
             get => _services; set
             {
@@ -47,25 +61,99 @@ namespace WillDriveByMyselfApp.ViewModels
             get => _currentSortType; set
             {
                 _currentSortType = value;
-                OnSortTypeChanged();
+                UpdateServicesOrder();
                 OnPropertyChanged();
             }
         }
 
-        private void OnSortTypeChanged()
+        public IEnumerable<string> FilterTypes
+        {
+            get => _filterTypes; set
+            {
+                _filterTypes = value;
+                OnPropertyChanged();
+            }
+        }
+        public string CurrentFilterType
+        {
+            get => _currentFilterType; set
+            {
+                _currentFilterType = value;
+                UpdateServicesOrder();
+                OnPropertyChanged();
+            }
+        }
+
+        private void UpdateServicesOrder()
+        {
+            Services = ServiceStore.ReadAll().ToList();
+            FilterServices();
+            SortServices();
+        }
+
+        private void SortServices()
         {
             if (CurrentSortType == "По стоимости по возрастанию")
             {
-                Services = new ObservableCollection<Service>(Services.OrderBy(s => (double)s.Cost * (s.Discount == 0 ? 1 : (1 - s.Discount))));
+                Services = Services.OrderBy
+                    (
+                        s => (double)s.Cost
+                             * (s.Discount == 0 ? 1 : (1 - s.Discount))
+                    );
             }
             else if (CurrentSortType == "По стоимости по убыванию")
             {
-                Services = new ObservableCollection<Service>(Services.OrderByDescending(s => (double)s.Cost * (s.Discount == 0 ? 1 : (1 - s.Discount))));
+                Services = Services.OrderByDescending
+                    (
+                        s => (double)s.Cost * (s.Discount
+                                               == 0 ? 1 : (1 - s.Discount))
+                    );
             }
             else
             {
-                Services = new ObservableCollection<Service>(ServiceStore.ReadAll());
+                ServiceStore.ReadAll().ToList();
             }
+        }
+
+        private void FilterServices()
+        {
+            if (CurrentFilterType != null && CurrentFilterType != "Все")
+            {
+                string[] currentFilterArray = CurrentFilterType.Split(' ');
+                double minimumDiscount = Convert.ToInt32
+                    (
+                        currentFilterArray[1].Replace("%", "")
+                    ) * percentToCoefficientFactor;
+                double maximumDiscount = Convert.ToInt32
+                    (
+                        currentFilterArray[3].Replace("%", "")
+                    ) * percentToCoefficientFactor;
+                Services = ServiceStore.ReadAll().Where
+                    (
+                        s => s.Discount >= minimumDiscount
+                             && s.Discount < maximumDiscount
+                    );
+            }
+        }
+
+        private RelayCommand clearCurrentFilterTypeCommand;
+
+        public ICommand ClearCurrentFilterTypeCommand
+        {
+            get
+            {
+                if (clearCurrentFilterTypeCommand == null)
+                {
+                    clearCurrentFilterTypeCommand = new RelayCommand(ClearCurrentFilterType);
+                }
+
+                return clearCurrentFilterTypeCommand;
+            }
+        }
+
+        private void ClearCurrentFilterType(object commandParameter)
+        {
+            CurrentFilterType = FilterTypes.First();
         }
     }
 }
