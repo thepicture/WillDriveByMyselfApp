@@ -2,10 +2,14 @@
 
 namespace WillDriveByMyselfApp.Services
 {
-    public static class MessageService
+    /// <summary>
+    /// Implements a method to send a message 
+    /// and subscribe to a new message event.
+    /// </summary>
+    public class MessageService : IMessageService
     {
-        public static event Action<object> NewMessage;
-        public static void Send(object message)
+        public event Action<object> NewMessage;
+        public void Send(object message)
         {
             NewMessage?.Invoke(message);
         }

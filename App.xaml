@@ -17,13 +17,19 @@
             <Setter Property="Margin" 
                     Value="5" />
         </Style>
+        <Style TargetType="Grid"
+                x:Key="CommonGrid">
+            <Setter Property="Margin" 
+                    Value="5" />
+        </Style>
         <Style TargetType="Image"
                x:Key="CommonImage">
             <Setter Property="Margin" 
                     Value="5" />
         </Style>
-            <DropShadowBitmapEffect Opacity=".3"
-                                    ShadowDepth=".2"
+            <DropShadowBitmapEffect Opacity=".5"
+                                    ShadowDepth="1"
+                                    Softness=".2"
                                     x:Key="ShadowEffect"></DropShadowBitmapEffect>
         <Style TargetType="Button"
                x:Key="CommonButton">

@@ -5,22 +5,18 @@ using WillDriveByMyselfApp.ViewModels;
 namespace WillDriveByMyselfApp.Services
 {
     /// <summary>
-    /// A static class for navigating
-    /// to the given view model type.
+    /// Implements methods for navigating 
+    /// to the given view model or to go to a previous view model.
     /// </summary>
-    public static class NavigationService
+    public class NavigationService : INavigationService
     {
-        public static ViewModelBase SelectedViewModel;
-        public static event Action Navigated;
+        public ViewModelBase SelectedViewModel;
+        public event Action Navigated;
 
-        public static Stack<ViewModelBase> History = new Stack<ViewModelBase>();
-        public static bool CanGoBack;
+        public Stack<ViewModelBase> History = new Stack<ViewModelBase>();
+        public bool CanGoBack;
 
-        /// <summary>
-        /// Navigates to the given view model type.
-        /// </summary>
-        /// <typeparam name="T">The type to navigate to.</typeparam>
-        public static void Navigate<T>()
+        public void Navigate<T>()
         {
             ViewModelBase viewModelToNavigate =
                 (ViewModelBase)Activator.CreateInstance(typeof(T));
@@ -30,21 +26,12 @@ namespace WillDriveByMyselfApp.Services
             Navigated?.Invoke();
         }
 
-        /// <summary>
-        /// Pops the last view model from the history and sets 
-        /// the current view model to a new peek.
-        /// <exception cref="System.IndexOutOfRangeException">
-        /// Throws 
-        /// <see cref="IndexOutOfRangeException">
-        /// System.IndexOutOfRangeException
-        /// </see> when trying to go back with one element in the history.
-        /// </exception>
-        /// </summary>
-        public static void GoBack()
+        public void GoBack()
         {
             if (History.Count == 1)
             {
-                throw new IndexOutOfRangeException("NavigationService's history is empty");
+                throw new IndexOutOfRangeException("NavigationService's " +
+                    "history is empty");
             }
             _ = History.Pop();
             SelectedViewModel = History.Peek();

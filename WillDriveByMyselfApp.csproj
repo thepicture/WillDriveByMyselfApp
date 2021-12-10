@@ -61,6 +61,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Services\DependencyService.cs" />
+    <Compile Include="Services\IMessageService.cs" />
+    <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\IPopupService.cs" />
     <Compile Include="Services\MessageBoxPopupService.cs" />
     <Compile Include="Services\MessageService.cs" />

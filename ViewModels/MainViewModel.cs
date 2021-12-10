@@ -10,8 +10,8 @@ namespace WillDriveByMyselfApp.ViewModels
 
         public MainViewModel()
         {
-            NavigationService.Navigated += OnNavigated;
-            MessageService.NewMessage += OnNewMessage;
+            DependencyService.Get<NavigationService>().Navigated += OnNavigated;
+            DependencyService.Get<MessageService>().NewMessage += OnNewMessage;
         }
 
         private void OnNavigated()
@@ -27,8 +27,9 @@ namespace WillDriveByMyselfApp.ViewModels
             }
         }
 
-        public ViewModelBase SelectedViewModel => NavigationService.SelectedViewModel;
-        public bool CanGoBack => NavigationService.CanGoBack;
+        public ViewModelBase SelectedViewModel => DependencyService
+            .Get<NavigationService>().SelectedViewModel;
+        public bool CanGoBack => DependencyService.Get<NavigationService>().CanGoBack;
 
         private RelayCommand _goToAdminModeCheckingCommand;
 
@@ -38,7 +39,8 @@ namespace WillDriveByMyselfApp.ViewModels
             {
                 if (_goToAdminModeCheckingCommand == null)
                 {
-                    _goToAdminModeCheckingCommand = new RelayCommand(GoToAdminModeChecking);
+                    _goToAdminModeCheckingCommand =
+                        new RelayCommand(GoToAdminModeChecking);
                 }
 
                 return _goToAdminModeCheckingCommand;
@@ -47,7 +49,8 @@ namespace WillDriveByMyselfApp.ViewModels
 
         private void GoToAdminModeChecking(object commandParameter)
         {
-            NavigationService.Navigate<AdminModeCheckingViewModel>();
+            DependencyService.Get<NavigationService>()
+                .Navigate<AdminModeCheckingViewModel>();
         }
 
         private RelayCommand _goBackCommand;
@@ -76,7 +79,7 @@ namespace WillDriveByMyselfApp.ViewModels
 
         private void GoBack(object commandParameter)
         {
-            NavigationService.GoBack();
+            DependencyService.Get<NavigationService>().GoBack();
         }
     }
 }
