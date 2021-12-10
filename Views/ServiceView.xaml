@@ -18,10 +18,21 @@
             <converters:ImagePathConverter x:Key="PathToImage"></converters:ImagePathConverter>
             <converters:DiscountToPercentConverter x:Key="DiscountToPercent"></converters:DiscountToPercentConverter>
             <converters:CostToColorConverter x:Key="CostToColor"></converters:CostToColorConverter>
-            <converters:DiscountToStrikeThroughConverter x:Key="DiscountToStrikethrough"></converters:DiscountToStrikeThroughConverter>
+            <converters:DiscountToStrikethroughConverter x:Key="DiscountToStrikethrough"></converters:DiscountToStrikethroughConverter>
             <converters:CostToDiscountCostConverter x:Key="CostToDiscountCost"></converters:CostToDiscountCostConverter>
         </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <WrapPanel Orientation="Horizontal"
+                   HorizontalAlignment="Center">
+            <ComboBox Style="{StaticResource CommonComboBox}"
+                      ItemsSource="{Binding SortTypes}"
+                      SelectedItem="{Binding CurrentSortType}"></ComboBox>
+        </WrapPanel>
         <ListBox ItemsSource="{Binding Services}"
+                 Grid.Row="1"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemContainerStyle>

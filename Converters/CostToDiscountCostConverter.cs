@@ -13,6 +13,10 @@ namespace WillDriveByMyselfApp.Converters
                               CultureInfo culture)
         {
             Service service = value as Service;
+            if (service == null || service.Discount == null || service.Cost == 0)
+            {
+                return 0;
+            }
             double? discountCoefficient = 1 - service.Discount;
             return (double)service.Cost * (double)discountCoefficient;
         }

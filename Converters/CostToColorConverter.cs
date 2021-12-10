@@ -12,6 +12,10 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
+            if (value is null)
+            {
+                return Brushes.White;
+            }
             bool isDiscountPositive = (double)value > 0;
             return isDiscountPositive ? Brushes.LightGreen : Brushes.White;
         }

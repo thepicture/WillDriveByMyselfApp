@@ -72,7 +72,7 @@
     <Compile Include="Converters\CostToColorConverter.cs" />
     <Compile Include="Converters\CostToDiscountCostConverter.cs" />
     <Compile Include="Converters\DiscountToPercentConverter.cs" />
-    <Compile Include="Converters\DiscountToStrikeThroughConverter.cs" />
+    <Compile Include="Converters\DiscountToStrikethroughConverter.cs" />
     <Compile Include="Converters\ImagePathConverter.cs" />
     <Compile Include="Converters\SecondsToMinutesConverter.cs" />
     <Compile Include="Entities\BaseModel.Context.cs">

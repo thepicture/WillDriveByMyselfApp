@@ -11,6 +11,10 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
+            if (value is null)
+            {
+                return 0;
+            }
             return (double)value * 100;
         }
 
