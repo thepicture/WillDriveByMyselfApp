@@ -173,6 +173,15 @@
                     </Style>
                 </Button.Style>
             </Button>
+            <TextBlock Style="{StaticResource CommonBlock}">
+                <TextBlock.Inlines>
+                    <Run Text="Выведено "></Run>
+                    <Run Text="{Binding Services.Count, Mode=OneWay}"></Run>
+                    <Run Text=" из "></Run>
+                    <Run Text="{Binding TotalServicesCount}"></Run>
+                    <Run Text=" записей"></Run>
+                </TextBlock.Inlines>
+            </TextBlock>
         </Grid>
     </Grid>
 </UserControl>

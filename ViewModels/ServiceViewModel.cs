@@ -63,7 +63,7 @@ namespace WillDriveByMyselfApp.ViewModels
             get => _currentSortType; set
             {
                 _currentSortType = value;
-                UpdateServicesOrder();
+                UpdateServicesAccordingToFilters();
                 OnPropertyChanged();
             }
         }
@@ -81,40 +81,39 @@ namespace WillDriveByMyselfApp.ViewModels
             get => _currentFilterType; set
             {
                 _currentFilterType = value;
-                UpdateServicesOrder();
+                UpdateServicesAccordingToFilters();
                 OnPropertyChanged();
             }
         }
 
-        private void UpdateServicesOrder()
+        private void UpdateServicesAccordingToFilters()
         {
             Services = ServiceStore.ReadAll().ToList();
+            SearchServices();
             FilterServices();
             SortServices();
+            TotalServicesCount = ServiceStore.ReadAll().Count();
         }
 
         private void SortServices()
         {
-            if (CurrentSortType == "По стоимости по возрастанию")
-            {
-                Services = Services.OrderBy
+            Services = CurrentSortType == "По стоимости по возрастанию"
+                ? Services.OrderBy
                     (
                         s => (double)s.Cost
-                             * (s.Discount == 0 ? 1 : (1 - s.Discount))
-                    );
-            }
-            else if (CurrentSortType == "По стоимости по убыванию")
-            {
-                Services = Services.OrderByDescending
-                    (
-                        s => (double)s.Cost * (s.Discount
-                                               == 0 ? 1 : (1 - s.Discount))
-                    );
-            }
-            else
-            {
-                ServiceStore.ReadAll().ToList();
-            }
+                             * (s.Discount == 0
+                             ? 1
+                             : (1 - s.Discount))
+                    )
+                : CurrentSortType == "По стоимости по убыванию"
+                    ? Services.OrderByDescending
+                                    (
+                                        s => (double)s.Cost * (s.Discount
+                                                               == 0
+                                                               ? 1
+                                                               : (1 - s.Discount))
+                                    )
+                    : Services;
         }
 
         private void FilterServices()
@@ -130,7 +129,7 @@ namespace WillDriveByMyselfApp.ViewModels
                     (
                         currentFilterArray[3].Replace("%", "")
                     ) * percentToCoefficientFactor;
-                Services = ServiceStore.ReadAll().Where
+                Services = Services.Where
                     (
                         s => s.Discount >= minimumDiscount
                              && s.Discount < maximumDiscount
@@ -158,14 +157,13 @@ namespace WillDriveByMyselfApp.ViewModels
             get => _titleSearchText; set
             {
                 _titleSearchText = value;
-                OnSearchTextChanged();
+                UpdateServicesAccordingToFilters();
                 OnPropertyChanged();
             }
         }
 
-        private void OnSearchTextChanged()
+        private void SearchServices()
         {
-            Services = ServiceStore.ReadAll().ToList();
             if (TitleSearchText != string.Empty)
             {
                 Services = Services.Where(s => s.Title.ToLower().Contains(TitleSearchText.ToLower()));
@@ -181,7 +179,7 @@ namespace WillDriveByMyselfApp.ViewModels
             get => _descriptionSearchText; set
             {
                 _descriptionSearchText = value;
-                OnSearchTextChanged();
+                UpdateServicesAccordingToFilters();
                 OnPropertyChanged();
             }
         }
@@ -189,6 +187,18 @@ namespace WillDriveByMyselfApp.ViewModels
         private void ClearCurrentFilterType(object commandParameter)
         {
             CurrentFilterType = FilterTypes.First();
+        }
+
+
+        private int _totalServicesCount;
+
+        public int TotalServicesCount
+        {
+            get => _totalServicesCount; set
+            {
+                _totalServicesCount = value;
+                OnPropertyChanged();
+            }
         }
     }
 }
