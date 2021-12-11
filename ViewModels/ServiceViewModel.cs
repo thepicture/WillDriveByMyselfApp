@@ -15,6 +15,8 @@ namespace WillDriveByMyselfApp.ViewModels
         private string _currentSortType;
         private IEnumerable<string> _filterTypes;
         private string _currentFilterType;
+        private string _titleSearchText = string.Empty;
+        private string _descriptionSearchText = string.Empty;
         public ServiceViewModel()
         {
             Title = "Список услуг";
@@ -148,6 +150,39 @@ namespace WillDriveByMyselfApp.ViewModels
                 }
 
                 return clearCurrentFilterTypeCommand;
+            }
+        }
+
+        public string TitleSearchText
+        {
+            get => _titleSearchText; set
+            {
+                _titleSearchText = value;
+                OnSearchTextChanged();
+                OnPropertyChanged();
+            }
+        }
+
+        private void OnSearchTextChanged()
+        {
+            Services = ServiceStore.ReadAll().ToList();
+            if (TitleSearchText != string.Empty)
+            {
+                Services = Services.Where(s => s.Title.ToLower().Contains(TitleSearchText.ToLower()));
+            }
+            if (DescriptionSearchText != string.Empty)
+            {
+                Services = Services.Where(s => s.Description.ToLower().Contains(DescriptionSearchText.ToLower()));
+            }
+        }
+
+        public string DescriptionSearchText
+        {
+            get => _descriptionSearchText; set
+            {
+                _descriptionSearchText = value;
+                OnSearchTextChanged();
+                OnPropertyChanged();
             }
         }
 

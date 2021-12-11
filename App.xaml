@@ -62,6 +62,7 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="300" />
             <Setter Property="BitmapEffect" Value="{StaticResource ShadowEffect}" />
             <Style.Resources>
                 <Style TargetType="Border">

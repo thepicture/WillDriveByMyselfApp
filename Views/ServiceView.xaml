@@ -36,6 +36,18 @@
             <Button Style="{StaticResource CommonButton}"
                     Content="Сбросить значения фильтрации"
                     Command="{Binding ClearCurrentFilterTypeCommand}"></Button>
+            <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Поиск по названию"
+                       VerticalAlignment="Center"></TextBlock>
+            <TextBox Style="{StaticResource CommonTextBox}"
+                     Text="{Binding TitleSearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <StackPanel Orientation="Horizontal">
+            <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Поиск по описанию"
+                       VerticalAlignment="Center"></TextBlock>
+            <TextBox Style="{StaticResource CommonTextBox}"
+                     Text="{Binding DescriptionSearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </StackPanel>
         </WrapPanel>
         <ListBox ItemsSource="{Binding Services}"
                  Grid.Row="1"
