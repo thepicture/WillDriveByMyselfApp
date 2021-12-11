@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using WillDriveByMyselfApp.Commands;
 using WillDriveByMyselfApp.Entities;
+using WillDriveByMyselfApp.Services;
 
 namespace WillDriveByMyselfApp.ViewModels
 {
@@ -17,6 +18,7 @@ namespace WillDriveByMyselfApp.ViewModels
         private string _currentFilterType;
         private string _titleSearchText = string.Empty;
         private string _descriptionSearchText = string.Empty;
+        private ICommand _deleteServiceCommand;
         public ServiceViewModel()
         {
             Title = "Список услуг";
@@ -198,6 +200,35 @@ namespace WillDriveByMyselfApp.ViewModels
             {
                 _totalServicesCount = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public ICommand DeleteServiceCommand
+        {
+            get
+            {
+                if (_deleteServiceCommand == null)
+                {
+                    _deleteServiceCommand = new RelayCommand(DeleteService);
+                }
+                return _deleteServiceCommand;
+            }
+        }
+
+        private void DeleteService(object obj)
+        {
+            Service service = obj as Service;
+            if (service.ClientService.Count > 0)
+            {
+                DependencyService.Get<IPopupService>().ShowWarning("Есть информация " +
+                    "о записях на услуги (прошлые или будущие), " +
+                    "удаление услуги из базы данных запрещено");
+                return;
+            }
+            else
+            {
+                ServiceStore.Delete(service);
+                UpdateServicesAccordingToFilters();
             }
         }
     }

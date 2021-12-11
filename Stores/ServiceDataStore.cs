@@ -17,7 +17,7 @@ namespace WillDriveByMyselfApp.Stores
 
         public void Create(Service entity)
         {
-            context.Service.Add(entity);
+            _ = context.Service.Add(entity);
             SaveChanges();
         }
 
@@ -39,7 +39,7 @@ namespace WillDriveByMyselfApp.Stores
 
         public void Delete(Service entity)
         {
-            context.Service.Remove(entity);
+            _ = context.Service.Remove(entity);
             SaveChanges();
         }
 
@@ -47,14 +47,14 @@ namespace WillDriveByMyselfApp.Stores
         {
             try
             {
-                context.SaveChanges();
-                DependencyService.Get<MessageBoxPopupService>().ShowInfo("Услуга " +
+                _ = context.SaveChanges();
+                DependencyService.Get<IPopupService>().ShowInfo("Услуга " +
                     "успешно обновлена в базе данных");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                DependencyService.Get<MessageBoxPopupService>().ShowError("Не удалось " +
+                DependencyService.Get<IPopupService>().ShowError("Не удалось " +
                   "изменить услугу. Попробуйте произвести действия ещё раз");
             }
         }
