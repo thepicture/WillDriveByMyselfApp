@@ -1,4 +1,5 @@
 ﻿using System;
+using WillDriveByMyselfApp.ViewModels;
 
 namespace WillDriveByMyselfApp.Services
 {
@@ -12,6 +13,8 @@ namespace WillDriveByMyselfApp.Services
         /// </summary>
         event Action Navigated;
 
+        ViewModelBase SelectedViewModel { get; set; }
+        bool CanGoBack { get; set; }
         /// <summary>
         /// Navigates to a object of the given type.
         /// </summary>

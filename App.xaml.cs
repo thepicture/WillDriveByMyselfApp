@@ -20,7 +20,7 @@ namespace WillDriveByMyselfApp
             DependencyService.Register<ServiceDataStore>();
 
             new MainView().Show();
-            DependencyService.Get<NavigationService>().Navigate<ServiceViewModel>();
+            DependencyService.Get<INavigationService>().Navigate<ServiceViewModel>();
         }
     }
 }

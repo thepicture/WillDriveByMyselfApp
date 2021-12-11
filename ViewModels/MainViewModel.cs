@@ -10,8 +10,8 @@ namespace WillDriveByMyselfApp.ViewModels
 
         public MainViewModel()
         {
-            DependencyService.Get<NavigationService>().Navigated += OnNavigated;
-            DependencyService.Get<MessageService>().NewMessage += OnNewMessage;
+            DependencyService.Get<INavigationService>().Navigated += OnNavigated;
+            DependencyService.Get<IMessageService>().NewMessage += OnNewMessage;
         }
 
         private void OnNavigated()
@@ -28,8 +28,8 @@ namespace WillDriveByMyselfApp.ViewModels
         }
 
         public ViewModelBase SelectedViewModel => DependencyService
-            .Get<NavigationService>().SelectedViewModel;
-        public bool CanGoBack => DependencyService.Get<NavigationService>().CanGoBack;
+            .Get<INavigationService>().SelectedViewModel;
+        public bool CanGoBack => DependencyService.Get<INavigationService>().CanGoBack;
 
         private RelayCommand _goToAdminModeCheckingCommand;
 
@@ -49,7 +49,7 @@ namespace WillDriveByMyselfApp.ViewModels
 
         private void GoToAdminModeChecking(object commandParameter)
         {
-            DependencyService.Get<NavigationService>()
+            DependencyService.Get<INavigationService>()
                 .Navigate<AdminModeCheckingViewModel>();
         }
 

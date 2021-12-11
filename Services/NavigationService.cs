@@ -10,11 +10,11 @@ namespace WillDriveByMyselfApp.Services
     /// </summary>
     public class NavigationService : INavigationService
     {
-        public ViewModelBase SelectedViewModel;
+        public ViewModelBase SelectedViewModel { get; set; }
         public event Action Navigated;
 
         public Stack<ViewModelBase> History = new Stack<ViewModelBase>();
-        public bool CanGoBack;
+        public bool CanGoBack { get; set; }
 
         public void Navigate<T>()
         {

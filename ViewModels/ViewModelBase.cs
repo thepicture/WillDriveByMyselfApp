@@ -9,7 +9,7 @@ namespace WillDriveByMyselfApp.ViewModels
     public class ViewModelBase : INotifyPropertyChanged
     {
         private string _title = string.Empty;
-        public IDataStore<Service> ServiceStore = DependencyService.Get<ServiceDataStore>();
+        public IDataStore<Service> ServiceStore = DependencyService.Get<IDataStore<Service>>();
 
         public string Title
         {

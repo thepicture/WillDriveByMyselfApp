@@ -37,14 +37,14 @@ namespace WillDriveByMyselfApp.ViewModels
         {
             if (Code == "0000")
             {
-                DependencyService.Get<MessageBoxPopupService>().ShowInfo("Режим " +
+                DependencyService.Get<IPopupService>().ShowInfo("Режим " +
                     "администратора активирован");
-                DependencyService.Get<MessageService>().Send("AdminModeEnable");
-                DependencyService.Get<NavigationService>().GoBack();
+                DependencyService.Get<IMessageService>().Send("AdminModeEnable");
+                DependencyService.Get<INavigationService>().GoBack();
             }
             else
             {
-                DependencyService.Get<MessageBoxPopupService>().ShowWarning("Неверный " +
+                DependencyService.Get<IPopupService>().ShowWarning("Неверный " +
                     "код. Введите корректный код для активации режима администратора");
             }
         }

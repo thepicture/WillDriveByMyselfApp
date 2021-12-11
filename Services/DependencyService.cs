@@ -12,8 +12,9 @@ namespace WillDriveByMyselfApp.Services
             {
                 return;
             }
-            _singletones.Add(typeof(T).FullName, Activator.CreateInstance(typeof(T)));
+            _singletones.Add(typeof(T).GetInterfaces()[0].FullName, Activator.CreateInstance(typeof(T)));
         }
+
         public static T Get<T>() where T : class
         {
             _ = _singletones.TryGetValue(typeof(T).FullName, out object result);
