@@ -13,7 +13,7 @@ namespace WillDriveByMyselfApp.Converters
         {
             return value is null
                 ? 0
-                : (object)((double)value * 100);
+                : (double)value * 100;
         }
 
         public object ConvertBack(object value,
@@ -21,7 +21,11 @@ namespace WillDriveByMyselfApp.Converters
                                   object parameter,
                                   CultureInfo culture)
         {
-            return (double)value / 100;
+            if (string.IsNullOrEmpty((string)value))
+            {
+                return 0;
+            }
+            return double.Parse((string)value) / 100;
         }
     }
 }

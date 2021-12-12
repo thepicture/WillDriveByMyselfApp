@@ -239,5 +239,25 @@ namespace WillDriveByMyselfApp.ViewModels
                 UpdateServicesAccordingToFilters();
             }
         }
+
+        private RelayCommand addServiceCommand;
+
+        public ICommand AddServiceCommand
+        {
+            get
+            {
+                if (addServiceCommand == null)
+                {
+                    addServiceCommand = new RelayCommand(AddService);
+                }
+
+                return addServiceCommand;
+            }
+        }
+
+        private void AddService(object commandParameter)
+        {
+            DependencyService.Get<NavigationService>().Navigate<AddEditServiceViewModel>(new Service());
+        }
     }
 }

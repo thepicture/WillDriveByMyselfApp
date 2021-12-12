@@ -10,6 +10,8 @@ namespace WillDriveByMyselfApp.Stores
     {
         private readonly WillDriveByMyselfBaseEntities context;
 
+        public bool IsLastOperationSuccessful { get; set; }
+
         public ServiceDataStore()
         {
             context = new WillDriveByMyselfBaseEntities();
@@ -50,12 +52,14 @@ namespace WillDriveByMyselfApp.Stores
                 _ = context.SaveChanges();
                 DependencyService.Get<IPopupService>().ShowInfo("Услуга " +
                     "успешно обновлена в базе данных");
+                IsLastOperationSuccessful = true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 DependencyService.Get<IPopupService>().ShowError("Не удалось " +
                   "изменить услугу. Попробуйте произвести действия ещё раз");
+                IsLastOperationSuccessful = false;
             }
         }
     }

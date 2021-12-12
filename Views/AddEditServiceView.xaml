@@ -20,7 +20,17 @@
             <StackPanel.Resources>
                 <converters:DiscountToPercentConverter x:Key="DiscountToPercent"></converters:DiscountToPercentConverter>
                 <converters:SecondsToMinutesConverter x:Key="SecondsToMinutes"></converters:SecondsToMinutesConverter>
+                <converters:ImagePathConverter x:Key="ImagePathConverter"></converters:ImagePathConverter>
             </StackPanel.Resources>
+            <StackPanel Opacity="{Binding Service.ID}">
+                <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Идентификатор">
+                </TextBlock>
+                <TextBox Text="{Binding Service.ID, UpdateSourceTrigger=PropertyChanged}"
+                     Style="{StaticResource CommonTextBox}"
+                     IsEnabled="False"
+                     MaxLength="100"></TextBox>
+            </StackPanel>
             <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Название"></TextBlock>
             <TextBox Text="{Binding Service.Title, UpdateSourceTrigger=PropertyChanged}"
@@ -46,12 +56,20 @@
                      Style="{StaticResource CommonTextBox}"
                      MaxLength="4"></TextBox>
             <TextBlock Style="{StaticResource CommonBlock}"
-                       Text="Название"></TextBlock>
-            <TextBox Text="{Binding Service.MainImagePath, UpdateSourceTrigger=PropertyChanged}"
-                     Style="{StaticResource CommonTextBox}"
-                     MaxLength="1000"></TextBox>
+                       Text="Основное изображение"></TextBlock>
+            <Border CornerRadius="10"
+                    Width="300"
+                    Height="300">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding Service.MainImagePath, Converter={StaticResource ImagePathConverter}}"></ImageBrush>
+                </Border.Background>
+            </Border>
+            <Button  Content="Выбрать ..."
+                     Style="{StaticResource CommonButton}"
+                     Command="{Binding DefineMainImagePathCommand}"></Button>
             <Button Content="Сохранить изменения"
-                    Style="{StaticResource CommonButton}"></Button>
+                    Style="{StaticResource CommonButton}"
+                    Command="{Binding SaveChangesCommand}"></Button>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -19,7 +19,11 @@ namespace WillDriveByMyselfApp.Converters
                                   object parameter,
                                   CultureInfo culture)
         {
-            return System.Convert.ToInt32((double)value * 60);
+            if (string.IsNullOrEmpty((string)value))
+            {
+                return 0;
+            }
+            return System.Convert.ToInt32(double.Parse((string)value) * 60);
         }
     }
 }

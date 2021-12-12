@@ -163,7 +163,8 @@
               Style="{StaticResource CommonGrid}"
               BitmapEffect="{StaticResource ShadowEffect}">
             <Button Content="Добавить услугу"
-                    HorizontalAlignment="Left">
+                    HorizontalAlignment="Left"
+                    Command="{Binding AddServiceCommand}">
                 <Button.Style>
                     <Style TargetType="Button"
                            BasedOn="{StaticResource CommonButton}">

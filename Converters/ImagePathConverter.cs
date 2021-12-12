@@ -11,7 +11,9 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
-            return "..\\Resources\\" + value;
+            return value == null
+                ? "..\\Resources\\service_logo.png"
+                : "..\\Resources\\" + value;
         }
 
         public object ConvertBack(object value,
