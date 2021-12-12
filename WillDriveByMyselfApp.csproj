@@ -69,6 +69,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Controls\NumericTextBox.cs" />
     <Compile Include="Converters\CostToColorConverter.cs" />
     <Compile Include="Converters\CostToDiscountCostConverter.cs" />
     <Compile Include="Converters\DiscountToPercentConverter.cs" />

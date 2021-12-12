@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace WillDriveByMyselfApp.Commands
@@ -16,7 +17,22 @@ namespace WillDriveByMyselfApp.Commands
             _canExecute = canExecute;
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
+
+        public void ChangeCanExecute(object sender, PropertyChangedEventArgs e)
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
 
         public bool CanExecute(object parameter)
         {

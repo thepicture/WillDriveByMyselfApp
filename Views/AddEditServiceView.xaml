@@ -5,71 +5,81 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WillDriveByMyselfApp.Views"
              xmlns:viewmodels="clr-namespace:WillDriveByMyselfApp.ViewModels" 
-             xmlns:converters="clr-namespace:WillDriveByMyselfApp.Converters" 
+             xmlns:converters="clr-namespace:WillDriveByMyselfApp.Converters"
+             xmlns:controls="clr-namespace:WillDriveByMyselfApp.Controls"
              d:DataContext="{d:DesignInstance Type=viewmodels:AddEditServiceViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" 
              d:DesignWidth="800">
     <ScrollViewer Style="{StaticResource CommonViewer}"
-                  Background="{StaticResource AdditionalBackground}"
                   BitmapEffect="{StaticResource ShadowEffect}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <StackPanel>
             <StackPanel.Resources>
                 <converters:DiscountToPercentConverter x:Key="DiscountToPercent"></converters:DiscountToPercentConverter>
                 <converters:SecondsToMinutesConverter x:Key="SecondsToMinutes"></converters:SecondsToMinutesConverter>
                 <converters:ImagePathConverter x:Key="ImagePathConverter"></converters:ImagePathConverter>
             </StackPanel.Resources>
-            <StackPanel Opacity="{Binding Service.ID}">
-                <TextBlock Style="{StaticResource CommonBlock}"
+            <Grid Background="{StaticResource AdditionalBackground}"
+              Style="{StaticResource CommonGrid}"
+              BitmapEffect="{StaticResource ShadowEffect}">
+                <TextBlock Text="{Binding ValidationErrors}"></TextBlock>
+            </Grid>
+            <Grid Background="{StaticResource AdditionalBackground}"
+                  Style="{StaticResource CommonGrid}"
+                  BitmapEffect="{StaticResource ShadowEffect}">
+            <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                <StackPanel Opacity="{Binding Service.ID}">
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Идентификатор">
-                </TextBlock>
-                <TextBox Text="{Binding Service.ID, UpdateSourceTrigger=PropertyChanged}"
+                    </TextBlock>
+                    <TextBox Text="{Binding Service.ID, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"
-                     IsEnabled="False"
-                     MaxLength="100"></TextBox>
-            </StackPanel>
-            <TextBlock Style="{StaticResource CommonBlock}"
+                     IsEnabled="False"></TextBox>
+                </StackPanel>
+                <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Название"></TextBlock>
-            <TextBox Text="{Binding Service.Title, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Service.Title, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"
                      MaxLength="100"></TextBox>
-            <TextBlock Style="{StaticResource CommonBlock}"
-                       Text="Стоимость"></TextBlock>
-            <TextBox Text="{Binding Service.Cost, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Стоимость в рублях"></TextBlock>
+                    <controls:NumericTextBox Text="{Binding Service.Cost, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"
-                     MaxLength="20"></TextBox>
-            <TextBlock Style="{StaticResource CommonBlock}"
+                     MaxLength="20"></controls:NumericTextBox>
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Длительность в минутах"></TextBlock>
-            <TextBox Text="{Binding Service.DurationInSeconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource SecondsToMinutes}}"
+                    <controls:NumericTextBox Text="{Binding Service.DurationInSeconds, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource SecondsToMinutes}}"
                      Style="{StaticResource CommonTextBox}"
-                     MaxLength="4"></TextBox>
-            <TextBlock Style="{StaticResource CommonBlock}"
+                     MaxLength="4"></controls:NumericTextBox>
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Описание"></TextBlock>
-            <TextBox Text="{Binding Service.Description, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Text="{Binding Service.Description, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"></TextBox>
-            <TextBlock Style="{StaticResource CommonBlock}"
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Процент скидки"></TextBlock>
-            <TextBox Text="{Binding Service.Discount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DiscountToPercent}}"
+                    <controls:NumericTextBox Text="{Binding Service.Discount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DiscountToPercent}}"
                      Style="{StaticResource CommonTextBox}"
-                     MaxLength="4"></TextBox>
-            <TextBlock Style="{StaticResource CommonBlock}"
+                     MaxLength="4"></controls:NumericTextBox>
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Основное изображение"></TextBlock>
-            <Border CornerRadius="10"
+                    <Border CornerRadius="10"
                     Width="300"
                     Height="300">
-                <Border.Background>
-                    <ImageBrush ImageSource="{Binding Service.MainImagePath, Converter={StaticResource ImagePathConverter}}"></ImageBrush>
-                </Border.Background>
-            </Border>
-            <Button  Content="Выбрать ..."
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Service.MainImagePath, Converter={StaticResource ImagePathConverter}}"></ImageBrush>
+                        </Border.Background>
+                    </Border>
+                    <Button  Content="Выбрать ..."
                      Style="{StaticResource CommonButton}"
                      Command="{Binding DefineMainImagePathCommand}"></Button>
-            <Button Content="Сохранить изменения"
+                    <Button Content="Сохранить изменения"
                     Style="{StaticResource CommonButton}"
                     Command="{Binding SaveChangesCommand}"></Button>
-        </StackPanel>
+                </StackPanel>
+            </Grid>
+            </StackPanel>
     </ScrollViewer>
 </UserControl>
