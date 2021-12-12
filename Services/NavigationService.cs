@@ -18,12 +18,7 @@ namespace WillDriveByMyselfApp.Services
 
         public void Navigate<T>()
         {
-            ViewModelBase viewModelToNavigate =
-                (ViewModelBase)Activator.CreateInstance(typeof(T));
-            History.Push(viewModelToNavigate);
-            SelectedViewModel = History.Peek();
-            CanGoBack = History.Count > 1;
-            Navigated?.Invoke();
+            Navigate<T>(null);
         }
 
         public void GoBack()
@@ -34,6 +29,25 @@ namespace WillDriveByMyselfApp.Services
                     "history is empty");
             }
             _ = History.Pop();
+            SelectedViewModel = History.Peek();
+            CanGoBack = History.Count > 1;
+            Navigated?.Invoke();
+        }
+
+        public void Navigate<T>(object obj)
+        {
+            ViewModelBase viewModelToNavigate;
+            if (obj == null)
+            {
+                viewModelToNavigate =
+                (ViewModelBase)Activator.CreateInstance(typeof(T));
+            }
+            else
+            {
+                viewModelToNavigate =
+                (ViewModelBase)Activator.CreateInstance(typeof(T), obj);
+            }
+            History.Push(viewModelToNavigate);
             SelectedViewModel = History.Peek();
             CanGoBack = History.Count > 1;
             Navigated?.Invoke();

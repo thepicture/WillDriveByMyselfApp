@@ -19,6 +19,14 @@ namespace WillDriveByMyselfApp.ViewModels
         private string _titleSearchText = string.Empty;
         private string _descriptionSearchText = string.Empty;
         private ICommand _deleteServiceCommand;
+        public ICommand EditServiceCommand => new RelayCommand(EditService);
+
+        private void EditService(object obj)
+        {
+            Service service = obj as Service;
+            DependencyService.Get<INavigationService>().Navigate<AddEditServiceViewModel>(service);
+        }
+
         public ServiceViewModel()
         {
             Title = "Список услуг";

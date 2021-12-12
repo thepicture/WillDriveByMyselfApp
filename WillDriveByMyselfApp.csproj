@@ -132,16 +132,24 @@
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Stores\IDataStore.cs" />
     <Compile Include="Stores\ServiceDataStore.cs" />
+    <Compile Include="ViewModels\AddEditServiceViewModel.cs" />
     <Compile Include="ViewModels\AdminModeCheckingViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AddEditServiceView.xaml.cs">
+      <DependentUpon>AddEditServiceView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AdminModeCheckingView.xaml.cs">
       <DependentUpon>AdminModeCheckingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\AddEditServiceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AdminModeCheckingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

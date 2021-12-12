@@ -20,6 +20,14 @@ namespace WillDriveByMyselfApp.Services
         /// </summary>
         /// <typeparam name="T">The type to navigate to.</typeparam>
         void Navigate<T>();
+        /// <summary>
+        /// Navigates to a object with the given object parameter.
+        /// </summary>
+        /// <typeparam name="T">The type T to navigate to.</typeparam>
+        /// <param name="obj">
+        /// The object parameter to use in constructor.
+        /// </param>
+        void Navigate<T>(object obj);
 
         /// <summary>
         /// Pops the last object from the history and sets 
