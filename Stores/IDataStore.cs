@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WillDriveByMyselfApp.Stores
 {
@@ -7,7 +8,7 @@ namespace WillDriveByMyselfApp.Stores
         bool IsLastOperationSuccessful { get; set; }
         void Create(T entity);
         T ReadSingle(object id);
-        IEnumerable<T> ReadAll();
+        Task<IEnumerable<T>> ReadAllAsync();
         void Update(T entity);
         void Delete(T entity);
     }

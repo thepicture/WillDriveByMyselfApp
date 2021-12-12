@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using WillDriveByMyselfApp.Entities;
 using WillDriveByMyselfApp.Services;
 
@@ -28,9 +30,9 @@ namespace WillDriveByMyselfApp.Stores
             return context.Service.Find(id);
         }
 
-        public IEnumerable<Service> ReadAll()
+        public async Task<IEnumerable<Service>> ReadAllAsync()
         {
-            return context.Service;
+            return await Task.FromResult(new WillDriveByMyselfBaseEntities().Service.ToList());
         }
 
         public void Update(Service entity)

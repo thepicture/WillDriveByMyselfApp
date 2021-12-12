@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WillDriveByMyselfApp.Commands;
 using WillDriveByMyselfApp.Entities;
@@ -30,29 +31,33 @@ namespace WillDriveByMyselfApp.ViewModels
         public ServiceViewModel()
         {
             Title = "Список услуг";
-            Services = ServiceStore.ReadAll().ToList();
-            SortTypes = new List<string>
-            {
+            _ = Task.Run(() =>
+              {
+                  SortTypes = new List<string>
+              {
                 "Без сортировки",
                 "По стоимости по возрастанию",
                 "По стоимости по убыванию",
-            };
-            CurrentSortType = SortTypes.First();
-            FilterTypes = new List<string>
-            {
+              };
+                  CurrentSortType = SortTypes.First();
+                  FilterTypes = new List<string>
+              {
                 "Все",
                 "от 0 до 5%",
                 "от 5% до 15%",
                 "от 15% до 30%",
                 "от 30% до 70%",
                 "от 70% до 100%"
-            };
-            CurrentFilterType = FilterTypes.First();
+              };
+                  CurrentFilterType = FilterTypes.First();
+              });
         }
 
         public IEnumerable<Service> Services
         {
-            get => _services; set
+            get => _services;
+
+            set
             {
                 _services = value;
                 OnPropertyChanged();
@@ -96,13 +101,14 @@ namespace WillDriveByMyselfApp.ViewModels
             }
         }
 
-        private void UpdateServicesAccordingToFilters()
+        private async void UpdateServicesAccordingToFilters()
         {
-            Services = ServiceStore.ReadAll().ToList();
+            Services = await ServiceStore.ReadAllAsync();
             SearchServices();
             FilterServices();
             SortServices();
-            TotalServicesCount = ServiceStore.ReadAll().Count();
+            IEnumerable<Service> allServices = await ServiceStore.ReadAllAsync();
+            TotalServicesCount = allServices.Count();
         }
 
         private void SortServices()
@@ -200,7 +206,7 @@ namespace WillDriveByMyselfApp.ViewModels
         }
 
 
-        private int _totalServicesCount;
+        private int _totalServicesCount = 0;
 
         public int TotalServicesCount
         {
