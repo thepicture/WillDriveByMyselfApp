@@ -175,7 +175,9 @@
                     </Style>
                 </Button.Style>
             </Button>
-            <TextBlock Style="{StaticResource CommonBlock}">
+            <TextBlock Style="{StaticResource CommonBlock}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center">
                 <TextBlock.Inlines>
                     <Run Text="Выведено "></Run>
                     <Run Text="{Binding Services.Count, Mode=OneWay}"></Run>
