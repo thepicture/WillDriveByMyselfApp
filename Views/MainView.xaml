@@ -36,7 +36,7 @@
             <TextBlock Text="{Binding SelectedViewModel.Title}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       FontSize="50"
+                       FontSize="30"
                        TextWrapping="Wrap"
                        TextAlignment="Center"></TextBlock>
             <StackPanel HorizontalAlignment="Right"
@@ -73,6 +73,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:AddEditServiceViewModel}">
                     <views:AddEditServiceView></views:AddEditServiceView>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:MakeAppointmentViewModel}">
+                    <views:MakeAppointmentView></views:MakeAppointmentView>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

@@ -70,6 +70,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Controls\NumericTextBox.cs" />
+    <Compile Include="Controls\TimeTextBox.cs" />
     <Compile Include="Converters\CostToColorConverter.cs" />
     <Compile Include="Converters\CostToDiscountCostConverter.cs" />
     <Compile Include="Converters\DiscountToPercentConverter.cs" />
@@ -136,11 +137,13 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\OpenFileDialogService.cs" />
+    <Compile Include="Stores\ClientAppointmentDataStore.cs" />
     <Compile Include="Stores\IDataStore.cs" />
     <Compile Include="Stores\ServiceDataStore.cs" />
     <Compile Include="ViewModels\AddEditServiceViewModel.cs" />
     <Compile Include="ViewModels\AdminModeCheckingViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MakeAppointmentViewModel.cs" />
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AddEditServiceView.xaml.cs">
@@ -148,6 +151,9 @@
     </Compile>
     <Compile Include="Views\AdminModeCheckingView.xaml.cs">
       <DependentUpon>AdminModeCheckingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MakeAppointmentView.xaml.cs">
+      <DependentUpon>MakeAppointmentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ServiceView.xaml.cs">
       <DependentUpon>ServiceView.xaml</DependentUpon>
@@ -172,6 +178,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\MakeAppointmentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ServiceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

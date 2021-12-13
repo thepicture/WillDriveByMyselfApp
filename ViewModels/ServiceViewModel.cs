@@ -20,6 +20,7 @@ namespace WillDriveByMyselfApp.ViewModels
         private string _titleSearchText = string.Empty;
         private string _descriptionSearchText = string.Empty;
         private ICommand _deleteServiceCommand;
+        public ICommand MakeAppointmentCommand { get; }
         public ICommand EditServiceCommand => new RelayCommand(EditService);
 
         private void EditService(object obj)
@@ -51,6 +52,14 @@ namespace WillDriveByMyselfApp.ViewModels
               };
                   CurrentFilterType = FilterTypes.First();
               });
+
+            MakeAppointmentCommand = new RelayCommand(MakeAppointment);
+        }
+
+        private void MakeAppointment(object obj)
+        {
+            Service service = obj as Service;
+            DependencyService.Get<INavigationService>().Navigate<MakeAppointmentViewModel>(service);
         }
 
         public IEnumerable<Service> Services

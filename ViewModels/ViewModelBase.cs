@@ -10,6 +10,7 @@ namespace WillDriveByMyselfApp.ViewModels
     {
         private string _title = string.Empty;
         public IDataStore<Service> ServiceStore = DependencyService.Get<IDataStore<Service>>();
+        public IDataStore<Client> ClientStore = DependencyService.Get<IDataStore<Client>>();
 
         public string Title
         {

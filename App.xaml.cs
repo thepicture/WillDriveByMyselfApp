@@ -21,6 +21,7 @@ namespace WillDriveByMyselfApp
             DependencyService.Register<MessageService>();
             DependencyService.Register<OpenFileDialogService>();
             DependencyService.Register<MainImageManipulator>();
+            DependencyService.Register<ClientAppointmentDataStore>();
 
             new MainView().Show();
 

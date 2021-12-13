@@ -50,12 +50,13 @@
                      Text="{Binding DescriptionSearchText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
         </WrapPanel>
-        <ListBox ItemsSource="{Binding Services}"
+        <ListView ItemsSource="{Binding Services}"
                  Grid.Row="1"
+                 SelectionMode="Single"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.Style>
-                <Style TargetType="ListBox">
+            <ListView.Style>
+                <Style TargetType="ListView">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}"
                                      Value="0">
@@ -72,14 +73,14 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListBox.Style>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
+            </ListView.Style>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" 
                             Value="Stretch" />
                 </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="{Binding Discount, Converter={StaticResource CostToColor}}"
                           BitmapEffect="{StaticResource ShadowEffect}">
@@ -170,13 +171,34 @@
                                             </Style>
                                         </Button.Style>
                                     </Button>
+                                    <Button Content="Записать клиента на услугу"
+                                            CommandParameter="{Binding .}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.MakeAppointmentCommand}">
+                                        <Button.Style>
+                                            <Style TargetType="Button"
+                                                   BasedOn="{StaticResource CommonButton}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListViewItem}, Path=IsSelected}"
+                                                                 Value="False">
+                                                        <Setter Property="Visibility"
+                                                                Value="Hidden" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.IsInAdminMode}"
+                                                                 Value="False">
+                                                        <Setter Property="Visibility"
+                                                                Value="Hidden" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
                                 </StackPanel>
                             </UniformGrid>
                         </Grid>
                     </Grid>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            </ListView.ItemTemplate>
+        </ListView>
         <Grid Grid.Row="2"
               Background="{StaticResource AdditionalBackground}"
               Style="{StaticResource CommonGrid}"
