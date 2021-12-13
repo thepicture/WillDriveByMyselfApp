@@ -65,11 +65,12 @@
                        Text="Дата оказания услуги"></TextBlock>
                     <DatePicker IsTodayHighlighted="True"
                                 Style="{StaticResource CommonDatePicker}"
-                                SelectedDate="{Binding CurrentDate}"></DatePicker>
+                                SelectedDate="{Binding CurrentDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                     <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Время начала оказания услуги"></TextBlock>
                     <controls:TimeTextBox Style="{StaticResource CommonTextBox}"
-                     MaxLength="5"></controls:TimeTextBox>
+                                          Text="{Binding Time, UpdateSourceTrigger=PropertyChanged}"
+                                          MaxLength="5"></controls:TimeTextBox>
                     <Button Content="Сохранить изменения"
                     Style="{StaticResource CommonButton}"
                     Command="{Binding SaveChangesCommand}"></Button>

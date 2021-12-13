@@ -19,12 +19,6 @@ namespace WillDriveByMyselfApp.Stores
             context = new WillDriveByMyselfBaseEntities();
         }
 
-        public void MakeAppointment(Client client,
-                                    ClientService appointment)
-        {
-            client.ClientService.Add(appointment);
-        }
-
         public void Create(Client entity)
         {
             throw new NotImplementedException();
