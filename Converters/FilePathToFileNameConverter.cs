@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using WillDriveByMyselfApp.Models;
-using WillDriveByMyselfApp.Services;
 
 namespace WillDriveByMyselfApp.Converters
 {
-    public class ImagePathConverter : IValueConverter
+    public class FilePathToFileNameConverter : IValueConverter
     {
+        public object Convert(string value)
+        {
+            return Convert(value, null, null, null);
+        }
         public object Convert(object value,
                               Type targetType,
                               object parameter,
                               CultureInfo culture)
         {
-            return DependencyService.Get<IManipulator>().Get(value);
+            string[] filePath = (value as string).Split(new string[] { "\\" },
+                                                        StringSplitOptions.RemoveEmptyEntries);
+            return filePath[filePath.Length - 1];
         }
 
         public object ConvertBack(object value,

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WillDriveByMyselfApp.Models;
 using WillDriveByMyselfApp.Services;
 using WillDriveByMyselfApp.Stores;
 using WillDriveByMyselfApp.ViewModels;
@@ -19,6 +20,7 @@ namespace WillDriveByMyselfApp
             DependencyService.Register<ServiceDataStore>();
             DependencyService.Register<MessageService>();
             DependencyService.Register<OpenFileDialogService>();
+            DependencyService.Register<MainImageManipulator>();
 
             new MainView().Show();
 

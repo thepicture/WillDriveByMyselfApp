@@ -16,6 +16,11 @@ namespace WillDriveByMyselfApp.Services
             return _fileDialog.FileName;
         }
 
+        public string GetFileNameOnly()
+        {
+            return _fileDialog.SafeFileName;
+        }
+
         public bool IsDialogOpened()
         {
             return (bool)_fileDialog.ShowDialog();

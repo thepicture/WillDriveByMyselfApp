@@ -6,7 +6,7 @@ namespace WillDriveByMyselfApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private bool _isInAdminMode = false;
+        private bool _isInAdminMode = true;
 
         public MainViewModel()
         {

@@ -124,6 +124,9 @@
     <Compile Include="Entities\Tag.cs">
       <DependentUpon>BaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Converters\FilePathToFileNameConverter.cs" />
+    <Compile Include="Models\IManipulator.cs" />
+    <Compile Include="Models\MainImageManipulator.cs" />
     <Compile Include="Services\DependencyService.cs" />
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\IMessageService.cs" />
@@ -208,9 +211,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Услуги автосервиса\diz.jpg" />
     <Resource Include="Resources\Услуги автосервиса\rulevoe-upravlenie-avtomobilya.jpg" />

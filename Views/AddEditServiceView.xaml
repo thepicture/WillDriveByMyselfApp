@@ -69,7 +69,8 @@
                     Width="300"
                     Height="300">
                         <Border.Background>
-                            <ImageBrush ImageSource="{Binding Service.MainImagePath, Converter={StaticResource ImagePathConverter}}"></ImageBrush>
+                            <ImageBrush ImageSource="{Binding Service.MainImagePath, Converter={StaticResource ImagePathConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                        Stretch="UniformToFill"></ImageBrush>
                         </Border.Background>
                     </Border>
                     <Button  Content="Выбрать ..."

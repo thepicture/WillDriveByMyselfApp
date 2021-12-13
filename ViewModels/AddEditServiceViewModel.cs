@@ -10,6 +10,7 @@ namespace WillDriveByMyselfApp.ViewModels
     {
         private Service _service;
         public IDialogService DialogService = DependencyService.Get<IDialogService>();
+        public Models.IManipulator ManipulatorService = DependencyService.Get<Models.IManipulator>();
         private string _validationErrors = string.Empty;
 
         public AddEditServiceViewModel(Service service)
@@ -56,7 +57,12 @@ namespace WillDriveByMyselfApp.ViewModels
         {
             if (DialogService.IsDialogOpened())
             {
-
+                ManipulatorService.Add(DialogService.GetResult());
+                Service.MainImagePath = "Услуги автосервиса\\"
+                                        + (string)new Converters.FilePathToFileNameConverter().Convert(DialogService.GetResult() as string);
+                OnPropertyChanged(nameof(Service));
+                DependencyService.Get<IPopupService>().ShowInfo("Изображение " +
+                    "успешно изменено");
             }
         }
 
