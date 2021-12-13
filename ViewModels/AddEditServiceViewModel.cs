@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Input;
 using WillDriveByMyselfApp.Commands;
 using WillDriveByMyselfApp.Entities;
@@ -120,8 +122,17 @@ namespace WillDriveByMyselfApp.ViewModels
             return isValid;
         }
 
-        private void SaveChanges(object commandParameter)
+        private async void SaveChanges(object commandParameter)
         {
+            IEnumerable<Service> services = await ServiceStore.ReadAllAsync();
+            if (services.Any(s => s.Title.ToLower().Equals(Service.Title.ToLower())))
+            {
+                DependencyService.Get<IPopupService>().ShowWarning("Добавление " +
+                    "услуги невозможно. Такая услуга существует в системе. " +
+                    "Названия у услуг не должны быть одинаковы. " +
+                    "Измените название услуги и попробуйте ещё раз");
+                return;
+            }
             bool serviceIsNew = Service.ID == 0;
             if (serviceIsNew)
             {
