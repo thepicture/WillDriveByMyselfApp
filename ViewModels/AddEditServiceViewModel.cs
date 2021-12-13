@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
@@ -11,9 +13,11 @@ namespace WillDriveByMyselfApp.ViewModels
     public class AddEditServiceViewModel : ViewModelBase
     {
         private Service _service;
+        private string _validationErrors = string.Empty;
         public IDialogService DialogService = DependencyService.Get<IDialogService>();
         public Models.IManipulator ManipulatorService = DependencyService.Get<Models.IManipulator>();
-        private string _validationErrors = string.Empty;
+        public ICommand DeleteAdditionalImageCommand { get; }
+        private ObservableCollection<ServicePhoto> _photos;
 
         public AddEditServiceViewModel(Service service)
         {
@@ -29,6 +33,20 @@ namespace WillDriveByMyselfApp.ViewModels
 
             Service = service;
             PropertyChanged += SaveChangesCommand.ChangeCanExecute;
+            DeleteAdditionalImageCommand = new RelayCommand(DeleteAdditionalImage);
+            Photos = service.ServicePhoto.Count > 0
+                ? new ObservableCollection<ServicePhoto>(service.ServicePhoto)
+                : new ObservableCollection<ServicePhoto>();
+        }
+
+        private void DeleteAdditionalImage(object obj)
+        {
+            ServicePhoto image = obj as ServicePhoto;
+            if (Photos.Remove(image))
+            {
+                DependencyService.Get<IPopupService>().ShowInfo("Дополнительное " +
+                    "изображение успешно удалено");
+            }
         }
 
         public Service Service
@@ -98,23 +116,23 @@ namespace WillDriveByMyselfApp.ViewModels
             StringBuilder errors = new StringBuilder();
             if (Service.Title == null || Service.Title.Length == 0)
             {
-                errors.AppendLine("Название услуги должно быть указано");
+                _ = errors.AppendLine("Название услуги должно быть указано");
                 isValid = false;
             }
             if (Service.Cost <= 0)
             {
-                errors.AppendLine("Стоимость услуги - это натуральное число");
+                _ = errors.AppendLine("Стоимость услуги - это натуральное число");
                 isValid = false;
             }
-            if (Service.DurationInSeconds <= 0)
+            if (Service.DurationInSeconds <= 0 || Service.DurationInSeconds > TimeSpan.FromHours(4).TotalSeconds)
             {
-                errors.AppendLine("Длительность услуги - " +
-                    "это натуральное число в минутах");
+                _ = errors.AppendLine("Длительность услуги - " +
+                    "это натуральное число в минутах не больше 4 часов");
                 isValid = false;
             }
             if (Service.Discount < 0)
             {
-                errors.AppendLine("Скидка услуги - " +
+                _ = errors.AppendLine("Скидка услуги - " +
                     "это неотрицательное натуральное число");
                 isValid = false;
             }
@@ -124,8 +142,9 @@ namespace WillDriveByMyselfApp.ViewModels
 
         private async void SaveChanges(object commandParameter)
         {
+            bool serviceIsNew = Service.ID == 0;
             IEnumerable<Service> services = await ServiceStore.ReadAllAsync();
-            if (services.Any(s => s.Title.ToLower().Equals(Service.Title.ToLower())))
+            if (serviceIsNew && services.Any(s => s.Title.ToLower().Equals(Service.Title.ToLower())))
             {
                 DependencyService.Get<IPopupService>().ShowWarning("Добавление " +
                     "услуги невозможно. Такая услуга существует в системе. " +
@@ -133,7 +152,11 @@ namespace WillDriveByMyselfApp.ViewModels
                     "Измените название услуги и попробуйте ещё раз");
                 return;
             }
-            bool serviceIsNew = Service.ID == 0;
+            Service.ServicePhoto.Clear();
+            foreach (ServicePhoto photo in Photos)
+            {
+                Service.ServicePhoto.Add(photo);
+            }
             if (serviceIsNew)
             {
                 ServiceStore.Create(Service);
@@ -145,6 +168,45 @@ namespace WillDriveByMyselfApp.ViewModels
             if (ServiceStore.IsLastOperationSuccessful)
             {
                 DependencyService.Get<NavigationService>().GoBack();
+            }
+        }
+
+        private RelayCommand addAdditionalImageCommand;
+
+        public ICommand AddAdditionalImageCommand
+        {
+            get
+            {
+                if (addAdditionalImageCommand == null)
+                {
+                    addAdditionalImageCommand = new RelayCommand(AddAdditionalImage);
+                }
+
+                return addAdditionalImageCommand;
+            }
+        }
+
+        public ObservableCollection<ServicePhoto> Photos
+        {
+            get => _photos; set
+            {
+                _photos = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private void AddAdditionalImage(object commandParameter)
+        {
+            if (DialogService.IsDialogOpened())
+            {
+                ManipulatorService.Add(DialogService.GetResult());
+                Photos.Add(new ServicePhoto
+                {
+                    PhotoPath = "Услуги автосервиса\\"
+                                + (string)new Converters.FilePathToFileNameConverter().Convert(DialogService.GetResult() as string)
+                });
+                DependencyService.Get<IPopupService>().ShowInfo("Изображение " +
+                    "успешно добавлено");
             }
         }
     }

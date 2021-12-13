@@ -29,17 +29,17 @@
             <Grid Background="{StaticResource AdditionalBackground}"
                   Style="{StaticResource CommonGrid}"
                   BitmapEffect="{StaticResource ShadowEffect}">
-            <StackPanel HorizontalAlignment="Center"
+                <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                <StackPanel Opacity="{Binding Service.ID}">
-                    <TextBlock Style="{StaticResource CommonBlock}"
+                    <StackPanel Opacity="{Binding Service.ID}">
+                        <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Идентификатор">
-                    </TextBlock>
-                    <TextBox Text="{Binding Service.ID, UpdateSourceTrigger=PropertyChanged}"
+                        </TextBlock>
+                        <TextBox Text="{Binding Service.ID, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"
                      IsEnabled="False"></TextBox>
-                </StackPanel>
-                <TextBlock Style="{StaticResource CommonBlock}"
+                    </StackPanel>
+                    <TextBlock Style="{StaticResource CommonBlock}"
                        Text="Название"></TextBlock>
                     <TextBox Text="{Binding Service.Title, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource CommonTextBox}"
@@ -76,11 +76,43 @@
                     <Button  Content="Выбрать ..."
                      Style="{StaticResource CommonButton}"
                      Command="{Binding DefineMainImagePathCommand}"></Button>
+                    <TextBlock Style="{StaticResource CommonBlock}"
+                       Text="Дополнительные изображения"></TextBlock>
+                    <ListBox ItemsSource="{Binding Photos}"
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border CornerRadius="10"
+                                            Width="300"
+                                            Height="300">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding PhotoPath, Converter={StaticResource ImagePathConverter}}"
+                                                        Stretch="UniformToFill"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Button Content="Удалить"
+                                            Style="{StaticResource CommonButton}"
+                                            CommandParameter="{Binding .}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.DeleteAdditionalImageCommand}"></Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button Content="Добавить дополнительное изображение ..."
+                            Style="{StaticResource CommonButton}"
+                            Command="{Binding AddAdditionalImageCommand}"></Button>
                     <Button Content="Сохранить изменения"
                     Style="{StaticResource CommonButton}"
                     Command="{Binding SaveChangesCommand}"></Button>
                 </StackPanel>
             </Grid>
-            </StackPanel>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>

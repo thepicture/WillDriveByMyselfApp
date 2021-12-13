@@ -37,14 +37,14 @@ namespace WillDriveByMyselfApp.Stores
 
         public void Update(Service entity)
         {
-            var dbEntity = context.Service.Find(entity.ID);
+            Service dbEntity = context.Service.Find(entity.ID);
             context.Entry(dbEntity).CurrentValues.SetValues(entity);
             SaveChanges();
         }
 
         public void Delete(Service entity)
         {
-            var dbEntity = context.Service.Find(entity.ID);
+            Service dbEntity = context.Service.Find(entity.ID);
             _ = context.Service.Remove(dbEntity);
             SaveChanges();
         }
