@@ -6,14 +6,19 @@ namespace WillDriveByMyselfApp.Converters
 {
     public class DiscountToPercentConverter : IValueConverter
     {
+        private const int noDiscount = 0;
+
         public object Convert(object value,
                               Type targetType,
                               object parameter,
                               CultureInfo culture)
         {
-            return value is null
-                ? 0
-                : (double)value * 100;
+            bool isDiscountNotProvided = value is null;
+            double discount = (double)value;
+            double discountPercent = discount * 100;
+            return isDiscountNotProvided
+                ? noDiscount
+                : discountPercent;
         }
 
         public object ConvertBack(object value,
@@ -21,11 +26,11 @@ namespace WillDriveByMyselfApp.Converters
                                   object parameter,
                                   CultureInfo culture)
         {
-            if (string.IsNullOrEmpty((string)value))
-            {
-                return 0;
-            }
-            return double.Parse((string)value) / 100;
+            bool isDiscountNotProvided = string.IsNullOrEmpty((string)value);
+            object discountCoefficient = double.Parse((string)value) / 100;
+            return isDiscountNotProvided
+                ? noDiscount
+                : discountCoefficient;
         }
     }
 }
