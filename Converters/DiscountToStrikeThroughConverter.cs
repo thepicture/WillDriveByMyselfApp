@@ -11,12 +11,18 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
-            if (value is null)
+            bool noDiscountProvided = value is null;
+            if (noDiscountProvided)
             {
-                return null;
+                return NoStrikethrough();
             }
             bool isDiscountPositive = (double)value > 0;
             return isDiscountPositive ? "Strikethrough" : null;
+        }
+
+        private static object NoStrikethrough()
+        {
+            return null;
         }
 
         public object ConvertBack(object value,
