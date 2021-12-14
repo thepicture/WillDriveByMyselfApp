@@ -274,5 +274,25 @@ namespace WillDriveByMyselfApp.ViewModels
         {
             DependencyService.Get<NavigationService>().Navigate<AddEditServiceViewModel>(new Service());
         }
+
+        private RelayCommand goToNearestAppointmentsCommand;
+
+        public ICommand GoToNearestAppointmentsCommand
+        {
+            get
+            {
+                if (goToNearestAppointmentsCommand == null)
+                {
+                    goToNearestAppointmentsCommand = new RelayCommand(GoToNearestAppointments);
+                }
+
+                return goToNearestAppointmentsCommand;
+            }
+        }
+
+        private void GoToNearestAppointments(object commandParameter)
+        {
+            DependencyService.Get<INavigationService>().Navigate<NearestServicesViewModel>();
+        }
     }
 }

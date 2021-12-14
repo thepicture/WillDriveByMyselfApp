@@ -203,22 +203,40 @@
               Background="{StaticResource AdditionalBackground}"
               Style="{StaticResource CommonGrid}"
               BitmapEffect="{StaticResource ShadowEffect}">
-            <Button Content="Добавить услугу"
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Добавить услугу"
                     HorizontalAlignment="Left"
                     Command="{Binding AddServiceCommand}">
-                <Button.Style>
-                    <Style TargetType="Button"
+                    <Button.Style>
+                        <Style TargetType="Button"
                            BasedOn="{StaticResource CommonButton}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.IsInAdminMode}"
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.IsInAdminMode}"
                                          Value="False">
-                                <Setter Property="Visibility" 
+                                    <Setter Property="Visibility" 
                                         Value="Hidden" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-            </Button>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="Ближайшие записи на услуги на сегодня и завтра"
+                    HorizontalAlignment="Left"
+                    Command="{Binding GoToNearestAppointmentsCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button"
+                           BasedOn="{StaticResource CommonButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Path=DataContext.IsInAdminMode}"
+                                         Value="False">
+                                    <Setter Property="Visibility" 
+                                        Value="Hidden" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
             <TextBlock Style="{StaticResource CommonBlock}"
                        HorizontalAlignment="Right"
                        VerticalAlignment="Center">

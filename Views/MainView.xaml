@@ -77,6 +77,9 @@
                 <DataTemplate DataType="{x:Type viewmodels:MakeAppointmentViewModel}">
                     <views:MakeAppointmentView></views:MakeAppointmentView>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:NearestServicesViewModel}">
+                    <views:NearestServicesView></views:NearestServicesView>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
         <Grid Background="#FF9C1A"
