@@ -12,13 +12,16 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
-            Service service = value as Service;
-            if (service == null || service.Discount == null || service.Cost == 0)
+            bool isServiceValid = value is Service
+                                  && (value as Service).Discount != null
+                                  && (value as Service).Cost != 0;
+            if (isServiceValid)
             {
-                return 0;
+                Service service = value as Service;
+                double? discountCoefficient = 1 - service.Discount;
+                return (double)service.Cost * (double)discountCoefficient;
             }
-            double? discountCoefficient = 1 - service.Discount;
-            return (double)service.Cost * (double)discountCoefficient;
+            return 0;
         }
 
         public object ConvertBack(object value,
