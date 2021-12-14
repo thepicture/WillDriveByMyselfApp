@@ -6,18 +6,24 @@ namespace WillDriveByMyselfApp.Converters
 {
     public class StartTimeToHoursAndMinutesConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value,
+                              Type targetType,
+                              object parameter,
+                              CultureInfo culture)
         {
             DateTime startTime = (DateTime)value;
-            TimeSpan difference = TimeSpan.FromDays(1) - startTime.TimeOfDay;
-            string template = difference.Hours
+            TimeSpan differenceInOneDay = TimeSpan.FromDays(2) - startTime.TimeOfDay;
+            string template = differenceInOneDay.TotalHours
                               + " часов "
-                              + difference.Minutes
+                              + differenceInOneDay.TotalMinutes
                               + " минут";
             return template;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value,
+                                  Type targetType,
+                                  object parameter,
+                                  CultureInfo culture)
         {
             return null;
         }

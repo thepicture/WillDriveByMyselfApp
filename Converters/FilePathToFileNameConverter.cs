@@ -15,9 +15,12 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
-            string[] filePath = (value as string).Split(new string[] { "\\" },
-                                                        StringSplitOptions.RemoveEmptyEntries);
-            return filePath[filePath.Length - 1];
+            string inputFilePath = value as string;
+            string[] filePath = inputFilePath.Split(
+                new string[] { "\\" },
+                StringSplitOptions.RemoveEmptyEntries);
+            string fileNameOfFilePath = filePath[filePath.Length - 1];
+            return fileNameOfFilePath;
         }
 
         public object ConvertBack(object value,

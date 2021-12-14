@@ -12,6 +12,7 @@ namespace WillDriveByMyselfApp.ViewModels
         private bool _isBusy;
         public IDataStore<Service> ServiceStore = DependencyService.Get<IDataStore<Service>>();
         public IDataStore<Client> ClientStore = DependencyService.Get<IDataStore<Client>>();
+        public IDataStore<ClientService> ClientServiceStore = DependencyService.Get<IDataStore<ClientService>>();
 
         public string Title
         {

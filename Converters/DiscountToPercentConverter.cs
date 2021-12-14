@@ -6,7 +6,7 @@ namespace WillDriveByMyselfApp.Converters
 {
     public class DiscountToPercentConverter : IValueConverter
     {
-        private const int noDiscount = 0;
+        private const int NoDiscount = 0;
 
         public object Convert(object value,
                               Type targetType,
@@ -17,7 +17,7 @@ namespace WillDriveByMyselfApp.Converters
             double discount = (double)value;
             double discountPercent = discount * 100;
             return isDiscountNotProvided
-                ? noDiscount
+                ? NoDiscount
                 : discountPercent;
         }
 
@@ -29,7 +29,7 @@ namespace WillDriveByMyselfApp.Converters
             bool isDiscountNotProvided = string.IsNullOrEmpty((string)value);
             object discountCoefficient = double.Parse((string)value) / 100;
             return isDiscountNotProvided
-                ? noDiscount
+                ? NoDiscount
                 : discountCoefficient;
         }
     }

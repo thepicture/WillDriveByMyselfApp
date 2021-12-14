@@ -8,13 +8,13 @@ using WillDriveByMyselfApp.Services;
 
 namespace WillDriveByMyselfApp.Stores
 {
-    public class ClientAppointmentDataStore : IDataStore<Client>
+    public class ClientDataStore : IDataStore<Client>
     {
         private readonly WillDriveByMyselfBaseEntities context;
 
         public bool IsLastOperationSuccessful { get; set; }
 
-        public ClientAppointmentDataStore()
+        public ClientDataStore()
         {
             context = new WillDriveByMyselfBaseEntities();
         }

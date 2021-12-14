@@ -242,7 +242,7 @@
                        VerticalAlignment="Center">
                 <TextBlock.Inlines>
                     <Run Text="Выведено "></Run>
-                    <Run Text="{Binding Services.Count, Mode=OneWay}"></Run>
+                    <Run Text="{Binding Services.Count, Mode=OneWay, FallbackValue=0}"></Run>
                     <Run Text=" из "></Run>
                     <Run Text="{Binding TotalServicesCount}"></Run>
                     <Run Text=" записей"></Run>

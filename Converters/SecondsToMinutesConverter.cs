@@ -6,12 +6,16 @@ namespace WillDriveByMyselfApp.Converters
 {
     public class SecondsToMinutesConverter : IValueConverter
     {
+        private const int ZeroSeconds = 0;
+
         public object Convert(object value,
                               Type targetType,
                               object parameter,
                               CultureInfo culture)
         {
-            return Math.Floor((int)value * 1.0 / 60);
+            double seconds = (int)value * 1.0;
+            double minutes = Math.Floor(seconds / 60);
+            return minutes;
         }
 
         public object ConvertBack(object value,
@@ -19,11 +23,14 @@ namespace WillDriveByMyselfApp.Converters
                                   object parameter,
                                   CultureInfo culture)
         {
-            if (string.IsNullOrEmpty((string)value))
+            bool isNoMinutesPresented = value == null
+                                        || string.IsNullOrEmpty((string)value);
+            if (isNoMinutesPresented)
             {
-                return 0;
+                return ZeroSeconds;
             }
-            return System.Convert.ToInt32(double.Parse((string)value) * 60);
+            double minutes = (double)value;
+            return System.Convert.ToInt32(minutes * 60);
         }
     }
 }

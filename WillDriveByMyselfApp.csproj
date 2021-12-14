@@ -139,7 +139,8 @@
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\OpenFileDialogService.cs" />
-    <Compile Include="Stores\ClientAppointmentDataStore.cs" />
+    <Compile Include="Stores\ClientDataStore.cs" />
+    <Compile Include="Stores\ClientServiceDataStore.cs" />
     <Compile Include="Stores\IDataStore.cs" />
     <Compile Include="Stores\ServiceDataStore.cs" />
     <Compile Include="ViewModels\AddEditServiceViewModel.cs" />

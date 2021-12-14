@@ -8,15 +8,6 @@ namespace WillDriveByMyselfApp.Services
     {
         private static readonly Dictionary<Type, object> _singletones =
             new Dictionary<Type, object>();
-        public static void Register<T>() where T : class
-        {
-            if (_singletones.ContainsKey(typeof(T)))
-            {
-                throw new InvalidOperationException("Attempt to register " +
-                    "already existing implementation");
-            }
-            _singletones.Add(typeof(T), (T)Activator.CreateInstance(typeof(T)));
-        }
 
         public static T Get<T>() where T : class
         {
@@ -26,6 +17,15 @@ namespace WillDriveByMyselfApp.Services
                 ? throw new ArgumentException("No implementation found " +
                 "for " + typeof(T).FullName)
                 : result as T;
+        }
+        public static void Register<T>() where T : class
+        {
+            if (_singletones.ContainsKey(typeof(T)))
+            {
+                throw new InvalidOperationException("Attempt to register " +
+                    "already existing implementation");
+            }
+            _singletones.Add(typeof(T), (T)Activator.CreateInstance(typeof(T)));
         }
     }
 }

@@ -12,7 +12,9 @@ namespace WillDriveByMyselfApp.Converters
                               object parameter,
                               CultureInfo culture)
         {
-            return DateTime.Now.Subtract((DateTime)value) < TimeSpan.FromHours(1)
+            bool isLessThanOneHourLeft = DateTime.Now.Subtract((DateTime)value)
+                                         < TimeSpan.FromHours(1);
+            return isLessThanOneHourLeft
             ? Brushes.Red
             : Brushes.White;
         }
