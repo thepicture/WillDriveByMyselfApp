@@ -1,5 +1,5 @@
 # WillDriveByMyselfApp
-Yet another preparing for a WS contest
+Yet another preparation for a WS contest
 ## Description
 This is the desktop app made on the WS task's requirements
 ## Functions
